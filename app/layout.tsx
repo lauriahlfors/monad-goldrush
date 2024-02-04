@@ -1,11 +1,10 @@
-import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
+import type { Metadata } from 'next';
 
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Next.js Starter',
-  description: 'Starter for Next.js projects!',
+  title: 'Goldrush Controller',
 };
 
 type Props = Readonly<{
@@ -15,7 +14,7 @@ type Props = Readonly<{
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" className={`${GeistSans.className}`}>
-      <body>{children}</body>
+      <body className="bg-akvamariini-950">{children}</body>
     </html>
   );
 }
