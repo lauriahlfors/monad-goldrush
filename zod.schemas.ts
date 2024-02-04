@@ -69,7 +69,6 @@ export const MessagesSchema = z.object({
   'sub-game': z.object({
     id: z.string(),
   }),
-  // 'game-instance': GameInstanceSchema,
   'game-instance': z.object({
     gameState: z.string(),
     status: z.string(),
