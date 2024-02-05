@@ -1,4 +1,4 @@
-# Monad Goldrush: 2024 Trainee Application
+# Monad Goldrush: 2024 Trainee Application.
 
 A client application to control the Goldrush game.
 
@@ -13,7 +13,7 @@ A client application to control the Goldrush game.
 - Store game id in the url params.
 - Strong and typesafe Zod schemas.
 
-## Built with
+## Built with.
 
 - Next.js 14
 - Tailwind
