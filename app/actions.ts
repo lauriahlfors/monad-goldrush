@@ -8,13 +8,40 @@ import {
 import { Action } from '@/types';
 import { ActionSchema } from '@/zod.schemas';
 
-export async function serverCreateNewGame() {
-  try {
-    const result = await createNewGame();
-    console.log(`[GameInstance] Created new game with id: ${result.entityId}`);
-  } catch (error) {
-    console.log(error);
-  }
+/**
+ *
+ * @returns game id string
+ */
+export async function serverCreateNewGame(): Promise<string> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await createNewGame();
+
+      // Return game id string.
+      resolve(response.entityId);
+    } catch (error) {
+      console.log(error);
+
+      // Return empty string.
+      reject('');
+    }
+  });
+}
+
+export async function setNewGameId(gameId: string): Promise<string> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await getGameInstance(gameId);
+
+      // Return game id string.
+      resolve(response.entityId);
+    } catch (error) {
+      console.log(error);
+
+      // Return empty string.
+      resolve('');
+    }
+  });
 }
 
 export async function serverSendUserAction(gameId: string, userAction: Action) {
@@ -23,7 +50,7 @@ export async function serverSendUserAction(gameId: string, userAction: Action) {
 
   // Action validation.
   if (!parse.success) {
-    console.log('[Action]' + parse.error.message);
+    console.log('[UserAction] Failed validation.');
   } else {
     try {
       sendGameAction(gameId, userAction);
@@ -31,17 +58,4 @@ export async function serverSendUserAction(gameId: string, userAction: Action) {
       console.log(error);
     }
   }
-}
-
-export async function setNewGameId(gameId: string): Promise<string> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await getGameInstance(gameId);
-
-      resolve(response.entityId);
-    } catch (error) {
-      console.log(error);
-      resolve('');
-    }
-  });
 }
