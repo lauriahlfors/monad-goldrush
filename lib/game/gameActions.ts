@@ -75,6 +75,7 @@ export async function sendGameAction(gameId: string, userAction: Action) {
  * @param gameId
  * @returns Game state data.
  */
+
 export async function getGameState(gameId: string): Promise<NoWayOutState> {
   return new Promise(async (resolve, reject) => {
     try {
@@ -164,11 +165,15 @@ export async function createNewGame(): Promise<GameInstance> {
       reject('[New GameInstance] Failed to create a new game instance.');
     }
 
-    const parse = GameInstanceSchema.safeParse(response);
+    const data = await response.json();
+    const parse = GameInstanceSchema.safeParse(data);
 
     if (!parse.success) {
       reject('[New GameInstance] Failed validation.');
     } else {
+      console.log(
+        `[GameInstance] Created new game with id: ${parse.data.entityId}`
+      );
       resolve(parse.data);
     }
   });
